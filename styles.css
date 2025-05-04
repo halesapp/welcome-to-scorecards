@@ -1,0 +1,82 @@
+:root {
+    --page-width: 927px;
+    --page-height: 924px;
+    --lot-width: 55px;
+    --fence-width: 7px;
+    --street-height: 98px;
+    --street-1-top: 88px;
+    --street-2-top: 152px;
+    --street-3-top: 215px;
+    --street-1-left: 219px;
+    --street-2-left: 156px;
+    --street-3-left: 94px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#app {
+    position: relative;
+    width: var(--page-width);
+    height: var(--page-height);
+}
+
+.board-base {
+    position: absolute;
+    width: var(--page-width);
+    height: var(--page-height);
+}
+
+.buttons-container {
+    position: absolute;
+    width: var(--page-width);
+    height: var(--page-height);
+}
+
+.lot {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    width: var(--lot-width);
+    height: 100%;
+    background: blue;
+    opacity: 25%;
+}
+
+.fence {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    width: var(--fence-width);
+    height: 100%;
+    background: red;
+    opacity: 25%;
+}
+
+.street-container {
+    position: relative;
+    /*background-color: white;*/
+    /*border: 1px solid black;*/
+    display: inline-block;
+    font-size: 0;
+    width: fit-content;
+    height: var(--street-height);
+}
+
+.street-1 {
+    top: var(--street-1-top);
+    left: var(--street-1-left);
+}
+
+.street-2 {
+    top: var(--street-2-top);
+    left: var(--street-2-left);
+}
+
+.street-3 {
+    top: var(--street-3-top);
+    left: var(--street-3-left);
+}
