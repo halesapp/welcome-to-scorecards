@@ -50,7 +50,6 @@ body {
     margin: 0;
     width: var(--fence-width);
     height: 100%;
-    opacity: 55%;
     background: transparent;
 }
 
@@ -67,7 +66,7 @@ body {
 }
 
 .pool.toggled {
-    background: black;
+    background: darkblue;
 }
 
 .house {
@@ -107,6 +106,16 @@ body {
   border-radius: 8px;
   pointer-events: none; /* So it doesn't interfere with clicks */
   z-index: 9999;
+}
+
+.interact-menu {
+    position: absolute;
+}
+
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
 }
 
 .fence, .house, .pool {
