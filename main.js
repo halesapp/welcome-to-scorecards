@@ -68,6 +68,20 @@ const removeToggle = element => {
   hideAllMenus()
 }
 
+const calculateParkScores = () => {
+  let totalScore = 0;
+  [1, 2, 3]
+    .forEach(streetNumber => {
+        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > div.park-marker.toggled`);
+        let score = 2 * scoredParks.length;
+        if (scoredParks.length === 2 + streetNumber) score += (2 * streetNumber + 2);
+        document.getElementById(`street${streetNumber}-score-parks`).innerText = score;
+        totalScore += score;
+      }
+    )
+  document.getElementById('total-score-parks').innerText = totalScore;
+}
+
 const incrementPark = element => {
   // list the children of the element in order
   const children = Array.from(element.children);
@@ -85,6 +99,7 @@ const incrementPark = element => {
       }
       return true
     })
+  calculateParkScores()
 }
 
 const decrementPark = element => {
@@ -105,6 +120,7 @@ const decrementPark = element => {
       }
       return true
     })
+  calculateParkScores()
 }
 
 const hideAllMenus = () => {
