@@ -193,7 +193,8 @@ const hideAllMenus = () => {
 }
 
 document.querySelectorAll('.fence, .house, .pool, .park').forEach(element => {
-  element.addEventListener('click', () => {
+  element.addEventListener('click', event => {
+    event.stopImmediatePropagation()
     hideAllMenus()
     // Get the bounding box of the clicked element
     const rect = element.getBoundingClientRect();
@@ -223,4 +224,11 @@ document.querySelectorAll('.fence, .house, .pool, .park').forEach(element => {
     if (type === "park") placeParkMenu(element)
     if (type === "house") placeHouseMenu(element)
   });
+});
+
+document.addEventListener('click', event => {
+  const isMenuOrHighlight = event.target.closest('.interact-menu') || event.target.closest('.highlight-box');
+  if (!isMenuOrHighlight) {
+    hideAllMenus();
+  }
 });
