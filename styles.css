@@ -2,11 +2,24 @@
     --page-width: 927px;
     --page-height: 924px;
     --lot-width: 55px;
+
     --fence-width: 7px;
+
+    --park-height: 34px;
+    --park-1-top: 42px;
+    --park-2-top: 208px;
+    --park-3-top: 373px;
+    --park-1-left: 732px;
+    --park-2-left: 701px;
+    --park-3-left: 668px;
+    --park-1-width: 125px;
+    --park-2-width: 155px;
+    --park-3-width: 190px;
+
     --street-height: 94px;
     --street-1-top: 88px;
-    --street-2-top: 159px;
-    --street-3-top: 231px;
+    --street-2-top: 254px;
+    --street-3-top: 420px;
     --street-1-left: 219px;
     --street-2-left: 156px;
     --street-3-left: 94px;
@@ -74,15 +87,45 @@ body {
     height: 54px;
     margin: 6px auto auto;
 }
+
 .house:first-child {
     margin: 22px auto auto;
 }
 
-.street-container {
-    position: relative;
+.buttons-container {
+    position: fixed;
     font-size: 0;
     width: fit-content;
+}
+
+.buttons-container.street {
     height: var(--street-height);
+}
+
+.buttons-container.park {
+    height: var(--park-height);
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.park-1 {
+    top: var(--park-1-top);
+    left: var(--park-1-left);
+    width: var(--park-1-width);
+}
+
+.park-2 {
+    top: var(--park-2-top);
+    left: var(--park-2-left);
+    width: var(--park-2-width);
+}
+
+.park-3 {
+    top: var(--park-3-top);
+    left: var(--park-3-left);
+    width: var(--park-3-width);
 }
 
 .street-1 {
@@ -101,11 +144,11 @@ body {
 }
 
 .highlight-box {
-  position: absolute;
-  border: 5px dashed orangered;
-  border-radius: 8px;
-  pointer-events: none; /* So it doesn't interfere with clicks */
-  z-index: 9999;
+    position: absolute;
+    border: 5px dashed orangered;
+    border-radius: 8px;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+    z-index: 9999;
 }
 
 .interact-menu {
@@ -118,6 +161,13 @@ body {
     margin: 5px;
 }
 
-.fence, .house, .pool {
-    position: relative; /* Ensure corners are positioned relative to the element */
+.park-marker {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+}
+
+.park-marker.toggled {
+    background: black;
 }
