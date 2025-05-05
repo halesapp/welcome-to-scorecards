@@ -77,7 +77,11 @@ const placeHouseMenu = element => {
   numberInput.style.textAlign = 'center';
   // when the input changes, update the element's inner text
   numberInput.onchange = () => {
-    element.innerText = parseInt(numberInput.value);
+    if (numberInput.value === "") {
+      element.innerText = "";
+    } else {
+      element.innerText = parseInt(numberInput.value);
+    }
   }
   menu.append(numberInput);
 
