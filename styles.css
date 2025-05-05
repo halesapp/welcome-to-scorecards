@@ -93,9 +93,9 @@ body {
 }
 
 .buttons-container {
-    position: fixed;
     font-size: 0;
     width: fit-content;
+    position: absolute;
 }
 
 .buttons-container.street {
