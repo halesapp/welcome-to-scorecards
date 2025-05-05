@@ -54,7 +54,8 @@ body {
     padding: 0;
     margin: 0;
     width: var(--lot-width);
-    height: 100%;
+    height: var(--street-height);
+    position: relative;
 }
 
 .fence {
@@ -62,7 +63,7 @@ body {
     padding: 0;
     margin: 0;
     width: var(--fence-width);
-    height: 100%;
+    height: var(--street-height);
     background: transparent;
 }
 
@@ -74,7 +75,7 @@ body {
     width: 46px;
     height: 25px;
     margin: 4px auto auto;
-    border-radius: 15px;
+    border-radius: 50%;
     background: transparent;
 }
 
@@ -85,11 +86,13 @@ body {
 .house {
     width: 46px;
     height: 54px;
-    margin: 6px auto auto;
+    position: relative;
+    top: 6px;
+    left: 4px;
 }
 
 .house:first-child {
-    margin: 22px auto auto;
+    top: 22px
 }
 
 .buttons-container {
@@ -169,7 +172,29 @@ body {
 }
 
 .park-marker.toggled {
-    background: black;
+    background: green;
+}
+
+.pool-marker {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+}
+
+.pool-marker.toggled {
+    background: darkblue;
+}
+
+.bis-marker {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+}
+
+.bis-marker.toggled {
+    background: darkred;
 }
 
 #street-scores-parks {
@@ -182,6 +207,28 @@ body {
     justify-content: space-between;
 }
 
+#street-scores-pools {
+    width: 56px;
+    height: 151px;
+    bottom: 114px;
+    left: 203px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#street-scores-bis {
+    width: 60px;
+    height: 186px;
+    bottom: 111px;
+    left: 693px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 #total-score-parks {
     width: 50px;
     height: 48px;
@@ -189,12 +236,29 @@ body {
     left: 121px;
 }
 
-.score-parks {
-    width: 50px;
-    height: 50px;
+#total-score-pools {
+    width: 40px;
+    height: 37px;
+    bottom: 51px;
+    left: 209px;
+}
+
+#total-score-bis {
+    width: 40px;
+    height: 37px;
+    bottom: 51px;
+    left: 704px;
+}
+
+.scores {
+    font-size: 17px;
+    font-weight: bolder;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 17px;
-    font-weight: bolder;
+}
+
+.score-parks {
+    width: 50px;
+    height: 50px;
 }

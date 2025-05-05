@@ -54,18 +54,56 @@ const placeParkMenu = element => {
   document.body.appendChild(menu);
 }
 
+const placeHouseMenu = element => {
+  const menuHeight = 60; // px
+  const menuWidth = 100; // px
+  const menu = document.createElement('div');
+  menu.classList.add('interact-menu');
+  menu.style.background = 'white';
+  menu.style.minWidth = `${menuWidth}px`;
+  menu.style.minHeight = `${menuHeight}px`;
+  menu.style.display = 'flex';
+  menu.style.alignItems = 'center';
+  menu.style.justifyContent = 'center';
+
+  const numberInput = document.createElement('input');
+  numberInput.type = 'number';
+  numberInput.min = -1;
+  numberInput.max = 17;
+  numberInput.step = 1;
+  numberInput.value = element.innerText || "";
+  numberInput.style.width = '75px';
+  numberInput.style.height = '50px';
+  numberInput.style.textAlign = 'center';
+  // when the input changes, update the element's inner text
+  numberInput.onchange = () => {
+    element.innerText = parseInt(numberInput.value);
+  }
+  menu.append(numberInput);
+
+  // Position the menu above the clicked element
+  const rect = element.getBoundingClientRect();
+  const spacing = 10;
+  menu.style.top = `${window.scrollY + rect.top - menuHeight - spacing}px`;
+  menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`;
+
+  document.body.appendChild(menu);
+}
+
 const addToggle = element => {
+  hideAllMenus()
   if (!element.classList.contains('toggled')) {
     element.classList.add('toggled');
   }
-  hideAllMenus()
+  calculatePoolScores()
 }
 
 const removeToggle = element => {
+  hideAllMenus()
   if (element.classList.contains('toggled')) {
     element.classList.remove('toggled');
   }
-  hideAllMenus()
+  calculatePoolScores()
 }
 
 const calculateParkScores = () => {
@@ -82,11 +120,35 @@ const calculateParkScores = () => {
   document.getElementById('total-score-parks').innerText = totalScore;
 }
 
+const calculatePoolScores = () => {
+  let totalScore = 0;
+  const toggledPools = document.querySelectorAll('.pool.toggled');
+
+  // find all the score markers for pools and toggle them appropriately
+  const poolMarkers = Array.from(document.querySelectorAll('.pool-marker')).slice(0, -1);
+  poolMarkers.forEach((element, index) => {
+    if (index < toggledPools.length) {
+      if (!element.classList.contains('toggled')) {
+        element.classList.add('toggled');
+      }
+    } else {
+      element.classList.remove('toggled');
+    }
+  })
+
+  if (!toggledPools.length) {
+    document.getElementById('total-score-pools').innerText = 0;
+    return
+  }
+  totalScore += 3 * toggledPools.length;
+  if (toggledPools.length >= 4) totalScore += toggledPools.length - 3;
+  if (toggledPools.length >= 7) totalScore += toggledPools.length - 6;
+  document.getElementById('total-score-pools').innerText = totalScore;
+}
+
 const incrementPark = element => {
-  // list the children of the element in order
   const children = Array.from(element.children);
   hideAllMenus()
-  // the last element is a placeholder for spacing. if the 2nd to last is toggled, return
   if (children[children.length - 2].classList.contains('toggled')) {
     return false
   }
@@ -103,13 +165,11 @@ const incrementPark = element => {
 }
 
 const decrementPark = element => {
-  // if the first element is not toggled then quit early
   const children = Array.from(element.children);
   hideAllMenus()
   if (!children[0].classList.contains('toggled')) {
     return false
   }
-  // go in reverse order starting from the 2nd to last element and remove the toggle on the first toggled element
   children
     .slice(0, -1)
     .reverse()
@@ -157,5 +217,6 @@ document.querySelectorAll('.fence, .house, .pool, .park').forEach(element => {
 
     if (type === "fence" || type === "pool") placeToggleMenu(element)
     if (type === "park") placeParkMenu(element)
+    if (type === "house") placeHouseMenu(element)
   });
 });
