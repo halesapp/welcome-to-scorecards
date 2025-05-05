@@ -1,0 +1,27 @@
+.buttons-container {
+    opacity: 65%;
+}
+
+.scores {
+    background-color: #00000047;
+}
+
+.fence {
+    background: red;
+}
+
+.house {
+    background-color: green;
+}
+
+.pool {
+    background-color: yellow;
+}
+
+.lot {
+    background: blue;
+}
+
+.park {
+    background: lightgreen;
+}
