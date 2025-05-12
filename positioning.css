@@ -104,27 +104,27 @@
     left: 705px;
 }
 
-#total-estate-1 {
+#total-score-estate-1 {
     left: 402px;
 }
 
-#estate-totals-2 {
+#total-score-estate-2 {
     left: 444px;
 }
 
-#estate-totals-3 {
+#total-score-estate-3 {
     left: 486px;
 }
 
-#estate-totals-4 {
+#total-score-estate-4 {
     left: 528px;
 }
 
-#estate-totals-5 {
+#total-score-estate-5 {
     left: 573px;
 }
 
-#estate-totals-6 {
+#total-score-estate-6 {
     left: 618px;
 }
 
@@ -174,4 +174,29 @@
     width: 38px;
     height: 37px;
     bottom: 51px;
+}
+
+.estate-counter {
+    width: 36px;
+    height: 37px;
+    bottom: 106px;
+}
+
+#estate-counter-1 {
+    left: 414px;
+}
+#estate-counter-2 {
+    left: 456px;
+}
+#estate-counter-3 {
+    left: 500px;
+}
+#estate-counter-4 {
+    left: 542px;
+}
+#estate-counter-5 {
+    left: 587px;
+}
+#estate-counter-6 {
+    left: 632px;
 }

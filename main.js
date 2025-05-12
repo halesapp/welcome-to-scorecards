@@ -111,6 +111,7 @@ const placeHouseMenu = element => {
     } else {
       element.innerText = parseInt(numberInput.value);
     }
+    calculateScores()
   }
   menu.append(numberInput);
 
@@ -171,6 +172,8 @@ const calculateScores = () => {
       }
     )
   document.getElementById('total-score-parks').innerText = parkTotal;
+
+  identifyEstates()
 }
 
 const incrementMarkerChildren = element => {
@@ -252,7 +255,7 @@ document.addEventListener('click', event => {
 
 const identifyEstates = () => {
   const streetNumbers = [1, 2, 3]
-  streetNumbers.map(number => {
+  const estates = streetNumbers.map(number => {
     // all houses on the street are selected so the first and last element can never be fences
     let streetComposition = Array.from(document.querySelectorAll(`#street${number} > .fence.toggled, #street${number} > .lot > .house`))
     if (streetComposition.length <= 1) return
@@ -264,7 +267,7 @@ const identifyEstates = () => {
     // iterate on the fenceIndices and check if the houses between the fences are built (number in the innerText)
     // to make the iteration logic easier, add a fence to the end of the fenceIndices array
     // If it's the first fence, slice up to the first fence.
-    // Otherwise slice between the previous fence and the current one one.
+    // Otherwise slice between the previous fence and the current one.
     fenceIndices.push(streetComposition.length)
     let estates = fenceIndices.map((streetIndex, i) => {
       let housesToEvaluate
@@ -282,7 +285,24 @@ const identifyEstates = () => {
     })
     // remove the zeros
     estates = estates.filter(e => e !== 0)
-    console.log(estates)
     return estates
+  }).flat()
+
+  const estatePoints = {
+    "1": [1, 3],
+    "2": [2, 3, 4],
+    "3": [3, 4, 5, 6],
+    "4": [4, 5, 6, 7, 8],
+    "5": [5, 6, 7, 8, 10],
+    "6": [6, 7, 8, 10, 12]
+  }
+
+  let estateSizes = [1, 2, 3, 4, 5, 6]
+  estateSizes.forEach(size => {
+    const nEstates = estates.filter(e => e === size).length
+    const nEstateToggles = document.querySelectorAll(`#scores-estate-${size} > .marker.toggled`).length
+    const points = nEstates * estatePoints[size][nEstateToggles]
+    document.getElementById(`estate-counter-${size}`).innerText = nEstates
+    document.getElementById(`total-score-estate-${size}`).innerText = points
   })
 }
