@@ -95,13 +95,13 @@ body {
     position: absolute;
     border: 5px dashed orangered;
     border-radius: 8px;
-    pointer-events: none; /* So it doesn't interfere with clicks */
+    pointer-events: none;
     z-index: 9999;
 }
 
-/*todo refactor positioning and click events on popup menus*/
 .interact-menu {
     position: absolute;
+    display: inline-flex;
 }
 
 .menu-icon {

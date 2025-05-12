@@ -31,3 +31,14 @@
 .marker.toggled.bis {
     background-color: darkred;
 }
+
+.incrementing-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 35px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background: aliceblue;
+}
