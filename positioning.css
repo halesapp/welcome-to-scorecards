@@ -70,6 +70,17 @@
     justify-content: space-around;
 }
 
+#scores-construction {
+    bottom: 139px;
+    left: 291px;
+    height: 144px;
+    width: 76px;
+}
+
+#total-score-construction {
+    left: 308px;
+}
+
 #scores-bis {
     width: 64px;
     height: 189px;

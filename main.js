@@ -87,7 +87,6 @@ const placeHouseMenu = element => {
   const menuWidth = 100 // px
   const menu = document.createElement('div')
   menu.classList.add('interact-menu')
-  menu.style.background = 'white'
   menu.style.minWidth = `${menuWidth}px`
   menu.style.minHeight = `${menuHeight}px`
   menu.style.display = 'flex'
@@ -103,7 +102,9 @@ const placeHouseMenu = element => {
   numberInput.style.width = '75px'
   numberInput.style.height = '50px'
   numberInput.style.textAlign = 'center'
-  // when the input changes, update the element's inner text
+  numberInput.style.border = '4px solid black'
+  numberInput.style.borderRadius = '35%'
+  numberInput.style.background = 'white'
   numberInput.onchange = () => {
     if (numberInput.value === "") {
       element.innerText = "";
@@ -214,7 +215,7 @@ const hideAllMenus = () => {
   document.querySelectorAll('.interact-menu').forEach(e => e.remove());
 }
 
-document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #scores-bis').forEach(element => {
+document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, #scores-bis').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -237,7 +238,7 @@ document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #scores
     const classes = element.classList;
     if (classes.contains('fence') || classes.contains('pool')) placeToggleMenu(element)
     else if (classes.contains('park')) placeIncrementableMenu({element, alignment: "horizontal"})
-    else if (classes.contains('estate-values') || element.id === "scores-bis") placeIncrementableMenu({element, alignment: "vertical"})
+    else if (classes.contains('estate-values') || classes.contains('construction-markers') || element.id === "scores-bis") placeIncrementableMenu({element, alignment: "vertical"})
     else if (classes.contains('house')) placeHouseMenu(element)
   });
 });

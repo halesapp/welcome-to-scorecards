@@ -42,3 +42,11 @@
     border-radius: 50%;
     background: aliceblue;
 }
+
+.construction-markers {
+    position: absolute;
+    bottom: 139px;
+    left: 291px;
+    height: 144px;
+    width: 76px;
+}
