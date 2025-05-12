@@ -1,0 +1,28 @@
+.marker-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.marker {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: transparent;
+}
+
+.marker.toggled {
+    background: black;
+}
+
+.marker.toggled.park {
+    background-color: darkgreen;
+}
+
+.marker.toggled.pool {
+    background-color: darkblue;
+}
+
+.marker.toggled.bis {
+    background-color: darkred;
+}

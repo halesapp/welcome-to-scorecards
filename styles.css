@@ -101,7 +101,6 @@ body {
     font-size: 0;
     width: fit-content;
     position: absolute;
-    /*width: var(--page-width);*/
     height: var(--page-height);
 }
 
@@ -172,50 +171,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-}
-
-.marker {
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    background: transparent;
-}
-
-.marker.toggled {
-    background: black;
-}
-
-.park-marker {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    background: transparent;
-}
-
-.park-marker.toggled {
-    background: green;
-}
-
-.pool-marker {
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    background: transparent;
-}
-
-.pool-marker.toggled {
-    background: darkblue;
-}
-
-.bis-marker {
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    background: transparent;
-}
-
-.bis-marker.toggled {
-    background: darkred;
 }
 
 #street-scores-parks {

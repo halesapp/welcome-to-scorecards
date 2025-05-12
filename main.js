@@ -152,7 +152,7 @@ const calculateParkScores = () => {
   let totalScore = 0;
   [1, 2, 3]
     .forEach(streetNumber => {
-        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > div.park-marker.toggled`);
+        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > div.marker.park.toggled`);
         let score = 2 * scoredParks.length;
         if (scoredParks.length === 2 + streetNumber) score += (2 * streetNumber + 2);
         document.getElementById(`street${streetNumber}-score-parks`).innerText = score;
@@ -164,10 +164,10 @@ const calculateParkScores = () => {
 
 const calculatePoolScores = () => {
   let totalScore = 0;
-  const toggledPools = document.querySelectorAll('.pool.toggled');
+  const toggledPools = document.querySelectorAll('.lot > .pool.toggled');
 
   // find all the score markers for pools and toggle them appropriately
-  const poolMarkers = Array.from(document.querySelectorAll('.pool-marker')).slice(0, -1);
+  const poolMarkers = Array.from(document.querySelectorAll('.marker.pool')).slice(0, -1);
   poolMarkers.forEach((element, index) => {
     if (index < toggledPools.length) {
       if (!element.classList.contains('toggled')) {
@@ -230,7 +230,8 @@ const hideAllMenus = () => {
   document.querySelectorAll('.interact-menu').forEach(e => e.remove());
 }
 
-document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street-scores-bis').forEach(element => {
+// document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street-scores-bis').forEach(element => {
+document.querySelectorAll('.fence, .house, .lot > .pool, .marker-container, .estate-values, #street-scores-bis').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -251,10 +252,10 @@ document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street
 
     // Create the interaction menu
     if (element.classList.contains('fence') || element.classList.contains('pool')) placeToggleMenu(element)
-    if (element.classList.contains('park')) placeParkMenu(element)
-    if (element.classList.contains('house')) placeHouseMenu(element)
-    if (element.classList.contains('estate-values')) placeEstateValueMenu(element)
-    if (element.classList.contains('score-bis')) placeBisMenu(element)
+    else if (element.classList.contains('park')) placeParkMenu(element)
+    else if (element.classList.contains('house')) placeHouseMenu(element)
+    else if (element.classList.contains('estate-values')) placeEstateValueMenu(element)
+    else if (element.classList.contains('score-bis')) placeBisMenu(element)
   });
 });
 
