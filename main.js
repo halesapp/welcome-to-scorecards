@@ -249,3 +249,40 @@ document.addEventListener('click', event => {
     hideAllMenus();
   }
 });
+
+const identifyEstates = () => {
+  const streetNumbers = [1, 2, 3]
+  streetNumbers.map(number => {
+    // all houses on the street are selected so the first and last element can never be fences
+    let streetComposition = Array.from(document.querySelectorAll(`#street${number} > .fence.toggled, #street${number} > .lot > .house`))
+    if (streetComposition.length <= 1) return
+
+    // if there are no fences, there are no estates
+    let fenceIndices = streetComposition.map((e, i) => e.classList.contains('fence') ? i : -1).filter(i => i !== -1)
+    if (fenceIndices.length === 0) return
+
+    // iterate on the fenceIndices and check if the houses between the fences are built (number in the innerText)
+    // to make the iteration logic easier, add a fence to the end of the fenceIndices array
+    // If it's the first fence, slice up to the first fence.
+    // Otherwise slice between the previous fence and the current one one.
+    fenceIndices.push(streetComposition.length)
+    let estates = fenceIndices.map((streetIndex, i) => {
+      let housesToEvaluate
+      if (i === 0) {
+        housesToEvaluate = streetComposition.slice(0, streetIndex)
+      } else {
+        housesToEvaluate = streetComposition.slice(fenceIndices[i - 1] + 1, streetIndex) // add 1 because we don't want to include the last fence
+      }
+      // max estate size is 6
+      if (housesToEvaluate.length > 6) return 0
+      // all houses must be built (innerText !== "")
+      if (housesToEvaluate.filter(e => e.innerText !== "").length !== housesToEvaluate.length) return 0
+      // otherwise the estate is valid
+      return housesToEvaluate.length
+    })
+    // remove the zeros
+    estates = estates.filter(e => e !== 0)
+    console.log(estates)
+    return estates
+  })
+}
