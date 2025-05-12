@@ -1,9 +1,14 @@
-.buttons-container {
+.street-container, .marker-container {
     opacity: 65%;
+    background-color: grey;
 }
 
-.scores, .estate-values {
+.score-box, .estate-values {
     background-color: #00000047;
+}
+
+.marker {
+    background: mediumpurple;
 }
 
 .fence {
@@ -14,14 +19,10 @@
     background-color: green;
 }
 
-.pool {
-    background-color: yellow;
-}
-
 .lot {
     background: blue;
 }
 
-.park {
-    background: lightgreen;
+.pool {
+    background: yellow
 }

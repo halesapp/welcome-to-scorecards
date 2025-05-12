@@ -1,0 +1,166 @@
+:root {
+    --park-1-top: 42px;
+    --park-2-top: 208px;
+    --park-3-top: 373px;
+    --park-1-left: 732px;
+    --park-2-left: 701px;
+    --park-3-left: 668px;
+    --park-1-width: 125px;
+    --park-2-width: 155px;
+    --park-3-width: 190px;
+    --street-1-top: 88px;
+    --street-2-top: 254px;
+    --street-3-top: 420px;
+    --street-1-left: 219px;
+    --street-2-left: 156px;
+    --street-3-left: 94px;
+}
+
+#parks1 {
+    top: var(--park-1-top);
+    left: var(--park-1-left);
+    width: var(--park-1-width);
+}
+
+#parks2 {
+    top: var(--park-2-top);
+    left: var(--park-2-left);
+    width: var(--park-2-width);
+}
+
+#parks3 {
+    top: var(--park-3-top);
+    left: var(--park-3-left);
+    width: var(--park-3-width);
+}
+
+#street1 {
+    top: var(--street-1-top);
+    left: var(--street-1-left);
+}
+
+#street2 {
+    top: var(--street-2-top);
+    left: var(--street-2-left);
+}
+
+#street3 {
+    top: var(--street-3-top);
+    left: var(--street-3-left);
+}
+
+#scores-parks {
+    width: 50px;
+    height: 139px;
+    bottom: 114px;
+    left: 121px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#scores-pools {
+    width: 56px;
+    height: 151px;
+    bottom: 114px;
+    left: 203px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#scores-bis {
+    width: 64px;
+    height: 189px;
+    bottom: 109px;
+    left: 691px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#total-score-parks {
+    left: 126px;
+}
+
+#total-score-pools {
+    left: 210px;
+}
+
+#total-score-bis {
+    left: 705px;
+}
+
+#total-estate-1 {
+    left: 402px;
+}
+
+#estate-totals-2 {
+    left: 444px;
+}
+
+#estate-totals-3 {
+    left: 486px;
+}
+
+#estate-totals-4 {
+    left: 528px;
+}
+
+#estate-totals-5 {
+    left: 573px;
+}
+
+#estate-totals-6 {
+    left: 618px;
+}
+
+#scores-estate-1 {
+    width: 36px;
+    height: 57px;
+    bottom: 167px;
+    left: 408px;
+}
+
+#scores-estate-2 {
+    width: 36px;
+    height: 84px;
+    bottom: 155px;
+    left: 451px;
+}
+
+#scores-estate-3 {
+    width: 36px;
+    height: 108px;
+    bottom: 146px;
+    left: 490px;
+}
+
+#scores-estate-4 {
+    width: 36px;
+    height: 134px;
+    bottom: 135px;
+    left: 532px;
+}
+
+#scores-estate-5 {
+    width: 36px;
+    height: 135px;
+    bottom: 148px;
+    left: 574px;
+}
+
+#scores-estate-6 {
+    width: 36px;
+    height: 135px;
+    bottom: 162px;
+    left: 614px;
+}
+
+.total-score {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+}

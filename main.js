@@ -231,7 +231,7 @@ const hideAllMenus = () => {
 }
 
 // document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street-scores-bis').forEach(element => {
-document.querySelectorAll('.fence, .house, .lot > .pool, .marker-container, .estate-values, #street-scores-bis').forEach(element => {
+document.querySelectorAll('.fence, .house, .lot > .pool, .marker-container, .estate-values, #scores-bis').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()

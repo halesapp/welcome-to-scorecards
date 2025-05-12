@@ -1,7 +1,12 @@
 .marker-container {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.marker-container.park {
+    height: var(--park-height);
 }
 
 .marker {

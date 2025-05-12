@@ -2,27 +2,14 @@
     --page-width: 927px;
     --page-height: 924px;
     --lot-width: 55px;
-
     --fence-width: 7px;
-
     --park-height: 34px;
-    --park-1-top: 42px;
-    --park-2-top: 208px;
-    --park-3-top: 373px;
-    --park-1-left: 732px;
-    --park-2-left: 701px;
-    --park-3-left: 668px;
-    --park-1-width: 125px;
-    --park-2-width: 155px;
-    --park-3-width: 190px;
-
     --street-height: 94px;
-    --street-1-top: 88px;
-    --street-2-top: 254px;
-    --street-3-top: 420px;
-    --street-1-left: 219px;
-    --street-2-left: 156px;
-    --street-3-left: 94px;
+
+}
+
+.abs {
+    position: absolute;
 }
 
 body {
@@ -97,56 +84,11 @@ body {
     top: 22px
 }
 
-.buttons-container {
+.street-container {
     font-size: 0;
     width: fit-content;
     position: absolute;
-    height: var(--page-height);
-}
-
-.buttons-container.street {
     height: var(--street-height);
-}
-
-.buttons-container.park {
-    height: var(--park-height);
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.park-1 {
-    top: var(--park-1-top);
-    left: var(--park-1-left);
-    width: var(--park-1-width);
-}
-
-.park-2 {
-    top: var(--park-2-top);
-    left: var(--park-2-left);
-    width: var(--park-2-width);
-}
-
-.park-3 {
-    top: var(--park-3-top);
-    left: var(--park-3-left);
-    width: var(--park-3-width);
-}
-
-.street-1 {
-    top: var(--street-1-top);
-    left: var(--street-1-left);
-}
-
-.street-2 {
-    top: var(--street-2-top);
-    left: var(--street-2-left);
-}
-
-.street-3 {
-    top: var(--street-3-top);
-    left: var(--street-3-left);
 }
 
 .highlight-box {
@@ -157,6 +99,7 @@ body {
     z-index: 9999;
 }
 
+/*todo refactor positioning and click events on popup menus*/
 .interact-menu {
     position: absolute;
 }
@@ -173,144 +116,7 @@ body {
     justify-content: space-around;
 }
 
-#street-scores-parks {
-    width: 50px;
-    height: 139px;
-    bottom: 114px;
-    left: 121px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#street-scores-pools {
-    width: 56px;
-    height: 151px;
-    bottom: 114px;
-    left: 203px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-#street-scores-bis {
-    width: 64px;
-    height: 189px;
-    bottom: 109px;
-    left: 691px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-#total-score-parks {
-    width: 50px;
-    height: 48px;
-    bottom: 46px;
-    left: 121px;
-}
-
-#total-score-pools {
-    width: 40px;
-    height: 37px;
-    bottom: 51px;
-    left: 209px;
-}
-
-#estate-totals-1 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 402px;
-}
-
-#estate-totals-2 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 444px;
-}
-
-#estate-totals-3 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 486px;
-}
-
-#estate-totals-4 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 528px;
-}
-
-#estate-totals-5 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 573px;
-}
-
-#estate-totals-6 {
-    width: 38px;
-    height: 37px;
-    bottom: 51px;
-    left: 618px;
-}
-
-#total-score-bis {
-    width: 40px;
-    height: 37px;
-    bottom: 51px;
-    left: 704px;
-}
-
-#estate-points-1 {
-    width: 36px;
-    height: 57px;
-    bottom: 167px;
-    left: 408px;
-}
-
-#estate-points-2 {
-    width: 36px;
-    height: 84px;
-    bottom: 155px;
-    left: 451px;
-}
-
-#estate-points-3 {
-    width: 36px;
-    height: 108px;
-    bottom: 146px;
-    left: 490px;
-}
-
-#estate-points-4 {
-    width: 36px;
-    height: 134px;
-    bottom: 135px;
-    left: 532px;
-}
-
-#estate-points-5 {
-    width: 36px;
-    height: 135px;
-    bottom: 148px;
-    left: 574px;
-}
-
-#estate-points-6 {
-    width: 36px;
-    height: 135px;
-    bottom: 162px;
-    left: 614px;
-}
-
-.scores {
+.score-box {
     font-size: 17px;
     font-weight: bolder;
     display: flex;

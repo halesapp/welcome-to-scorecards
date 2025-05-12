@@ -10,6 +10,7 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="markers.css">
+  <link rel="stylesheet" href="positioning.css">
 <!--  <link rel="stylesheet" href="debug.css">-->
   <script src="main.js" defer></script>
 
@@ -19,13 +20,13 @@
 <div id="app">
   <img id="base-image" src="game-sheet.webp" alt="blank board game sheet" class="board-base"/>
 
-  <div id="parks1" class="marker-container buttons-container park park-1">
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
+  <div id="parks1" class="marker-container park">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
   </div>
-  <div id="street1" class="buttons-container street street-1">
+  <div id="street1" class="street-container">
     <div class="lot">
       <div class="house"></div>
     </div>
@@ -70,14 +71,14 @@
     </div>
   </div>
 
-  <div id="parks2" class="marker-container buttons-container park park-2">
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
+  <div id="parks2" class="marker-container park">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
   </div>
-  <div id="street2" class="buttons-container street street-2">
+  <div id="street2" class="street-container">
     <div class="lot" style="width: 57px">
       <div class="pool"></div>
       <div class="house"></div>
@@ -126,15 +127,15 @@
     </div>
   </div>
 
-  <div id="parks3" class="marker-container buttons-container park park-3">
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
-    <div class="marker park"></div>
+  <div id="parks3" class="marker-container park">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
   </div>
-  <div id="street3" class="buttons-container street street-3">
+  <div id="street3" class="street-container">
     <div class="lot" style="width: 57px">
       <div class="house"></div>
     </div>
@@ -187,95 +188,83 @@
     </div>
   </div>
   
-  <div id="street-scores-parks" class="buttons-container scores">
-    <div id="street1-score-parks" class="scores score-parks">0</div>
-    <div id="street2-score-parks" class="scores score-parks">0</div>
-    <div id="street3-score-parks" class="scores score-parks">0</div>
+  <div id="scores-parks" class="abs">
+    <div id="street1-score-parks" class="score-box score-parks">0</div>
+    <div id="street2-score-parks" class="score-box score-parks">0</div>
+    <div id="street3-score-parks" class="score-box score-parks">0</div>
   </div>
-  <div id="total-score-parks" class="buttons-container scores score-parks">0</div>
+  <div id="total-score-parks" class="abs score-box total-score">0</div>
 
-  <div id="street-scores-pools" class="buttons-container scores score-pools">
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
-    <div class="marker pool"></div>
+  <div id="scores-pools" class="marker-container score-box">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
   </div>
-  <div id="total-score-pools" class="buttons-container scores score-pools">0</div>
+  <div id="total-score-pools" class="abs score-box total-score">0</div>
 
-  <div id="estate-points-1" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-1" class="buttons-container scores">
+  <div id="scores-estate-1" class="marker-container estate-values">
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
-  <div id="estate-points-2" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-2" class="buttons-container scores">
+  <div id="total-estate-1" class="abs score-box total-score"></div>
+  <div id="scores-estate-2" class="marker-container estate-values">
+    <div class="marker"></div>
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
-  <div id="estate-points-3" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-3" class="buttons-container scores">
+  <div id="estate-totals-2" class="abs score-box total-score"></div>
+  <div id="scores-estate-3" class="marker-container estate-values">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
-  <div id="estate-points-4" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-4" class="buttons-container scores">
+  <div id="estate-totals-3" class="abs score-box total-score"></div>
+  <div id="scores-estate-4" class="marker-container estate-values">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
-  <div id="estate-points-5" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-5" class="buttons-container scores">
+  <div id="estate-totals-4" class="abs score-box total-score"></div>
+  <div id="scores-estate-5" class="marker-container estate-values">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
-  <div id="estate-points-6" class="buttons-container marker-container estate-values">
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-    <div class="marker estate"></div>
-  </div>
-  <div id="estate-totals-6" class="buttons-container scores">
+  <div id="estate-totals-5" class="abs score-box total-score"></div>
+  <div id="scores-estate-6" class="marker-container estate-values">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
     <div class="marker"></div>
   </div>
+  <div id="estate-totals-6" class="abs score-box total-score"></div>
 
-  <div id="street-scores-bis" class="buttons-container scores score-bis">
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
-    <div class="marker bis"></div>
+  <div id="scores-bis" class="abs score-box">
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
+    <div class="marker"></div>
   </div>
-  <div id="total-score-bis" class="buttons-container scores score-bis">0</div>
+  <div id="total-score-bis" class="abs score-box total-score">0</div>
 </div>
 
 </body>
