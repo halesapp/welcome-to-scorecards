@@ -164,10 +164,10 @@ const calculateParkScores = () => {
 
 const calculatePoolScores = () => {
   let totalScore = 0;
-  const toggledPools = document.querySelectorAll('.lot > .pool.toggled');
+  const toggledPools = document.querySelectorAll('.pool.toggled');
 
   // find all the score markers for pools and toggle them appropriately
-  const poolMarkers = Array.from(document.querySelectorAll('.marker.pool')).slice(0, -1);
+  const poolMarkers = Array.from(document.querySelectorAll('#scores-pools > .marker')).slice(0, -1);
   poolMarkers.forEach((element, index) => {
     if (index < toggledPools.length) {
       if (!element.classList.contains('toggled')) {
@@ -230,8 +230,7 @@ const hideAllMenus = () => {
   document.querySelectorAll('.interact-menu').forEach(e => e.remove());
 }
 
-// document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street-scores-bis').forEach(element => {
-document.querySelectorAll('.fence, .house, .lot > .pool, .marker-container, .estate-values, #scores-bis').forEach(element => {
+document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #scores-bis').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
