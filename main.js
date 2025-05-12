@@ -1,80 +1,118 @@
-const placeToggleMenu = element => {
-  const menuHeight = 50; // px
-  const menuWidth = 100; // px
-  const menu = document.createElement('div');
-  menu.classList.add('interact-menu');
-  menu.style.width = `${menuWidth}px`;
-  menu.style.height = `${menuHeight}px`;
+const newNoElement = onclick => {
   const noElement = document.createElement('img');
-  noElement.onclick = () => removeToggle(element)
   noElement.src = './no.png';
   noElement.alt = 'Cancel';
   noElement.classList.add('menu-icon');
+  noElement.onclick = onclick;
+  return noElement;
+}
+
+const newYesElement = onclick => {
   const yesElement = document.createElement('img');
-  yesElement.onclick = () => addToggle(element)
   yesElement.src = './yes.png';
   yesElement.alt = 'Apply';
   yesElement.classList.add('menu-icon');
-  menu.appendChild(noElement);
-  menu.appendChild(yesElement);
+  yesElement.onclick = onclick;
+  return yesElement;
+}
+
+const placeToggleMenu = element => {
+  const menuHeight = 50 // px
+  const menuWidth = 100 // px
+  const menu = document.createElement('div');
+  menu.classList.add('interact-menu')
+  menu.style.width = `${menuWidth}px`
+  menu.style.height = `${menuHeight}px`
+  const noElement = newNoElement(() => removeToggle(element))
+  const yesElement = newYesElement(() => addToggle(element))
+  menu.appendChild(noElement)
+  menu.appendChild(yesElement)
 
   // Position the menu above the clicked element
-  const rect = element.getBoundingClientRect();
-  const spacing = 10;
-  menu.style.top = `${window.scrollY + rect.top - menuHeight - spacing}px`;
-  menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`;
-
+  const rect = element.getBoundingClientRect()
+  const spacing = 10
+  menu.style.top = `${window.scrollY + rect.top - menuHeight - spacing}px`
+  menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`
   document.body.appendChild(menu);
 };
 
 const placeParkMenu = element => {
-  const menu = document.createElement('div');
-  menu.classList.add('interact-menu');
-  const noElement = document.createElement('img');
-  noElement.onclick = () => decrementPark(element)
-  noElement.src = './no.png';
-  noElement.alt = 'Cancel';
-  noElement.classList.add('menu-icon');
-  const yesElement = document.createElement('img');
-  yesElement.onclick = () => incrementPark(element)
-  yesElement.src = './yes.png';
-  yesElement.alt = 'Apply';
-  yesElement.classList.add('menu-icon');
-  menu.appendChild(noElement);
-  menu.appendChild(yesElement);
+  const menu = document.createElement('div')
+  menu.classList.add('interact-menu')
+  const noElement = newNoElement(() => decrementMarkerChildren(element))
+  const yesElement = newYesElement(() => incrementMarkerChildren(element))
+  menu.appendChild(noElement)
+  menu.appendChild(yesElement)
   // the no button should be to the left of the element and the yes button to the right
-  const rect = element.getBoundingClientRect();
-  menu.style.top = `${window.scrollY + rect.top - 8}px`;
-  menu.style.left = `${window.scrollX + rect.left - 50}px`;
-  menu.style.width = `${rect.width + 100}px`;
-  menu.style.height = `${rect.height}px`;
-  menu.style.display = 'flex';
-  menu.style.justifyContent = 'space-between';
+  const rect = element.getBoundingClientRect()
+  menu.style.top = `${window.scrollY + rect.top - 8}px`
+  menu.style.left = `${window.scrollX + rect.left - 50}px`
+  menu.style.width = `${rect.width + 100}px`
+  menu.style.height = `${rect.height}px`
+  menu.style.display = 'flex'
+  menu.style.justifyContent = 'space-between'
+  document.body.appendChild(menu);
+}
 
+const placeEstateValueMenu = element => {
+  const menuHeight = 50 // px
+  const menuWidth = 100 // px
+  const menu = document.createElement('div');
+  menu.classList.add('interact-menu')
+  menu.style.width = `${menuWidth}px`
+  menu.style.height = `${menuHeight}px`
+  const noElement = newNoElement(() => decrementMarkerChildren(element))
+  const yesElement = newYesElement(() => incrementMarkerChildren(element))
+  menu.appendChild(noElement)
+  menu.appendChild(yesElement)
+
+  // Position the menu above the clicked element
+  const rect = element.getBoundingClientRect()
+  const spacing = 10
+  menu.style.top = `${window.scrollY + rect.top - menuHeight - spacing}px`
+  menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`
+  document.body.appendChild(menu);
+}
+
+const placeBisMenu = element => {
+  const menu = document.createElement('div')
+  menu.classList.add('interact-menu')
+  const noElement = newNoElement(() => decrementMarkerChildren(element))
+  const yesElement = newYesElement(() => incrementMarkerChildren(element))
+  menu.appendChild(noElement)
+  menu.appendChild(yesElement)
+  // the no button should be to the left of the element and the yes button to the right
+  const rect = element.getBoundingClientRect()
+  menu.style.top = `${window.scrollY + rect.top - 8}px`
+  menu.style.left = `${window.scrollX + rect.left - 50}px`
+  menu.style.width = `${rect.width + 100}px`
+  menu.style.height = `${rect.height}px`
+  menu.style.display = 'flex'
+  menu.style.justifyContent = 'space-between'
   document.body.appendChild(menu);
 }
 
 const placeHouseMenu = element => {
-  const menuHeight = 60; // px
-  const menuWidth = 100; // px
-  const menu = document.createElement('div');
-  menu.classList.add('interact-menu');
-  menu.style.background = 'white';
-  menu.style.minWidth = `${menuWidth}px`;
-  menu.style.minHeight = `${menuHeight}px`;
-  menu.style.display = 'flex';
-  menu.style.alignItems = 'center';
-  menu.style.justifyContent = 'center';
+  const menuHeight = 60 // px
+  const menuWidth = 100 // px
+  const menu = document.createElement('div')
+  menu.classList.add('interact-menu')
+  menu.style.background = 'white'
+  menu.style.minWidth = `${menuWidth}px`
+  menu.style.minHeight = `${menuHeight}px`
+  menu.style.display = 'flex'
+  menu.style.alignItems = 'center'
+  menu.style.justifyContent = 'center'
 
-  const numberInput = document.createElement('input');
-  numberInput.type = 'number';
-  numberInput.min = -1;
-  numberInput.max = 17;
-  numberInput.step = 1;
-  numberInput.value = element.innerText || "";
-  numberInput.style.width = '75px';
-  numberInput.style.height = '50px';
-  numberInput.style.textAlign = 'center';
+  const numberInput = document.createElement('input')
+  numberInput.type = 'number'
+  numberInput.min = -1
+  numberInput.max = 17
+  numberInput.step = 1
+  numberInput.value = element.innerText || ""
+  numberInput.style.width = '75px'
+  numberInput.style.height = '50px'
+  numberInput.style.textAlign = 'center'
   // when the input changes, update the element's inner text
   numberInput.onchange = () => {
     if (numberInput.value === "") {
@@ -86,7 +124,7 @@ const placeHouseMenu = element => {
   menu.append(numberInput);
 
   // Position the menu above the clicked element
-  const rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect()
   const spacing = 10;
   menu.style.top = `${window.scrollY + rect.top - menuHeight - spacing}px`;
   menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`;
@@ -150,7 +188,7 @@ const calculatePoolScores = () => {
   document.getElementById('total-score-pools').innerText = totalScore;
 }
 
-const incrementPark = element => {
+const incrementMarkerChildren = element => {
   const children = Array.from(element.children);
   hideAllMenus()
   if (children[children.length - 2].classList.contains('toggled')) {
@@ -168,7 +206,7 @@ const incrementPark = element => {
   calculateParkScores()
 }
 
-const decrementPark = element => {
+const decrementMarkerChildren = element => {
   const children = Array.from(element.children);
   hideAllMenus()
   if (!children[0].classList.contains('toggled')) {
@@ -192,7 +230,7 @@ const hideAllMenus = () => {
   document.querySelectorAll('.interact-menu').forEach(e => e.remove());
 }
 
-document.querySelectorAll('.fence, .house, .pool, .park').forEach(element => {
+document.querySelectorAll('.fence, .house, .pool, .park, .estate-values, #street-scores-bis').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -209,20 +247,14 @@ document.querySelectorAll('.fence, .house, .pool, .park').forEach(element => {
     highlight.style.left = `${window.scrollX + rect.left - padding}px`;
     highlight.style.width = `${rect.width + padding}px`;
     highlight.style.height = `${rect.height + padding}px`;
-
     document.body.appendChild(highlight);
 
     // Create the interaction menu
-    const type = element.classList.contains('fence') ? 'fence'
-      : element.classList.contains('house') ? 'house'
-        : element.classList.contains('pool') ? 'pool'
-          : element.classList.contains('park') ? 'park'
-            : null;
-    if (!type) return;
-
-    if (type === "fence" || type === "pool") placeToggleMenu(element)
-    if (type === "park") placeParkMenu(element)
-    if (type === "house") placeHouseMenu(element)
+    if (element.classList.contains('fence') || element.classList.contains('pool')) placeToggleMenu(element)
+    if (element.classList.contains('park')) placeParkMenu(element)
+    if (element.classList.contains('house')) placeHouseMenu(element)
+    if (element.classList.contains('estate-values')) placeEstateValueMenu(element)
+    if (element.classList.contains('score-bis')) placeBisMenu(element)
   });
 });
 

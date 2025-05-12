@@ -43,12 +43,6 @@ body {
     height: var(--page-height);
 }
 
-.buttons-container {
-    position: absolute;
-    width: var(--page-width);
-    height: var(--page-height);
-}
-
 .lot {
     display: inline-block;
     padding: 0;
@@ -107,6 +101,8 @@ body {
     font-size: 0;
     width: fit-content;
     position: absolute;
+    /*width: var(--page-width);*/
+    height: var(--page-height);
 }
 
 .buttons-container.street {
@@ -172,6 +168,23 @@ body {
     margin: 5px;
 }
 
+.estate-values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.marker {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: transparent;
+}
+
+.marker.toggled {
+    background: black;
+}
+
 .park-marker {
     border-radius: 50%;
     width: 20px;
@@ -227,10 +240,10 @@ body {
 }
 
 #street-scores-bis {
-    width: 60px;
-    height: 186px;
-    bottom: 111px;
-    left: 693px;
+    width: 64px;
+    height: 189px;
+    bottom: 109px;
+    left: 691px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -251,11 +264,95 @@ body {
     left: 209px;
 }
 
+#estate-totals-1 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 402px;
+}
+
+#estate-totals-2 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 444px;
+}
+
+#estate-totals-3 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 486px;
+}
+
+#estate-totals-4 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 528px;
+}
+
+#estate-totals-5 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 573px;
+}
+
+#estate-totals-6 {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+    left: 618px;
+}
+
 #total-score-bis {
     width: 40px;
     height: 37px;
     bottom: 51px;
     left: 704px;
+}
+
+#estate-points-1 {
+    width: 36px;
+    height: 57px;
+    bottom: 167px;
+    left: 408px;
+}
+
+#estate-points-2 {
+    width: 36px;
+    height: 84px;
+    bottom: 155px;
+    left: 451px;
+}
+
+#estate-points-3 {
+    width: 36px;
+    height: 108px;
+    bottom: 146px;
+    left: 490px;
+}
+
+#estate-points-4 {
+    width: 36px;
+    height: 134px;
+    bottom: 135px;
+    left: 532px;
+}
+
+#estate-points-5 {
+    width: 36px;
+    height: 135px;
+    bottom: 148px;
+    left: 574px;
+}
+
+#estate-points-6 {
+    width: 36px;
+    height: 135px;
+    bottom: 162px;
+    left: 614px;
 }
 
 .scores {
@@ -264,6 +361,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    user-select: none;
 }
 
 .score-parks {
