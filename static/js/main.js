@@ -93,7 +93,7 @@ const placeHouseMenu = element => {
     } else {
       element.innerText = parseInt(numberInput.value);
     }
-    getDataKeysToCache()
+    cacheDataKeys()
     calculateScores()
   }
   menu.append(numberInput);
@@ -112,7 +112,7 @@ const addToggle = element => {
   if (!element.classList.contains('toggled')) {
     element.classList.add('toggled');
   }
-  getDataKeysToCache()
+  cacheDataKeys()
   calculateScores()
 }
 
@@ -122,10 +122,12 @@ const removeToggle = element => {
     element.classList.remove('toggled');
   }
   calculateScores()
-  getDataKeysToCache()
+  cacheDataKeys()
 }
 
 const calculateScores = () => {
+  let totalScore = 0
+
   //////// Calculate Pool Scores
   let poolTotal = 0;
   const toggledPools = document.querySelectorAll('.pool.toggled');
@@ -139,11 +141,11 @@ const calculateScores = () => {
       element.classList.remove('toggled');
     }
   })
-
   poolTotal += 3 * toggledPools.length;
   if (toggledPools.length >= 4) poolTotal += toggledPools.length - 3;
   if (toggledPools.length >= 7) poolTotal += toggledPools.length - 6;
   document.getElementById('total-score-pools').innerText = poolTotal;
+  totalScore += poolTotal;
 
   //////// Calculate Park Scores
   let parkTotal = 0;
@@ -157,8 +159,43 @@ const calculateScores = () => {
       }
     )
   document.getElementById('total-score-parks').innerText = parkTotal;
+  totalScore += parkTotal;
 
-  identifyEstates()
+  //////// Calculate Estate Points
+  const estates = identifyEstates()
+  const estatePoints = {
+    "1": [1, 3],
+    "2": [2, 3, 4],
+    "3": [3, 4, 5, 6],
+    "4": [4, 5, 6, 7, 8],
+    "5": [5, 6, 7, 8, 10],
+    "6": [6, 7, 8, 10, 12]
+  }
+
+  const estateSizes = [1, 2, 3, 4, 5, 6]
+  estateSizes.forEach(size => {
+    const nEstates = estates.filter(e => e === size).length
+    const nEstateToggles = document.querySelectorAll(`#scores-estate-${size} > .marker.toggled`).length
+    const points = nEstates * estatePoints[size][nEstateToggles]
+    document.getElementById(`estate-counter-${size}`).innerText = nEstates
+    document.getElementById(`total-score-estate-${size}`).innerText = points
+    totalScore += points
+  })
+
+  //////// Calculate Bis Penalties
+  const bisPoints = [0, 1, 3, 6, 9, 12, 16, 20, 24, 28]
+  const bisCount = document.querySelectorAll('.scores-bis > .marker.toggled').length
+  document.getElementById('total-score-bis').innerText = bisPoints[bisCount]
+  totalScore -= bisPoints[bisCount]
+
+  //////// Calculate Skips Penalties
+  const skipPoints = [0, 0, 3, 5]
+  const skipsCount = document.querySelectorAll('.skips > .marker.toggled').length
+  document.getElementById('total-score-skips').innerText = skipPoints[skipsCount]
+  totalScore -= skipPoints[skipsCount]
+
+  //////// Calculate Total Score
+  document.getElementById('total-score').innerText = totalScore
 }
 
 const incrementMarkerChildren = element => {
@@ -176,6 +213,7 @@ const incrementMarkerChildren = element => {
       }
       return true
     })
+  cacheDataKeys()
   calculateScores()
 }
 
@@ -195,6 +233,7 @@ const decrementMarkerChildren = element => {
       }
       return true
     })
+  cacheDataKeys()
   calculateScores()
 }
 
@@ -205,7 +244,7 @@ const hideAllMenus = () => {
 
 const identifyEstates = () => {
   const streetNumbers = [1, 2, 3]
-  const estates = streetNumbers.map(number => {
+  return streetNumbers.map(number => {
     // all houses on the street are selected so the first and last element can never be fences
     let streetComposition = Array.from(document.querySelectorAll(`#street${number} > .fence.toggled, #street${number} > .lot > .house`))
     if (streetComposition.length <= 1) return
@@ -216,16 +255,10 @@ const identifyEstates = () => {
 
     // iterate on the fenceIndices and check if the houses between the fences are built (number in the innerText)
     // to make the iteration logic easier, add a fence to the end of the fenceIndices array
-    // If it's the first fence, slice up to the first fence.
-    // Otherwise slice between the previous fence and the current one.
+    // If it's the first fence, slice up to the first fence, else slice between the previous fence and the current one.
     fenceIndices.push(streetComposition.length)
     let estates = fenceIndices.map((streetIndex, i) => {
-      let housesToEvaluate
-      if (i === 0) {
-        housesToEvaluate = streetComposition.slice(0, streetIndex)
-      } else {
-        housesToEvaluate = streetComposition.slice(fenceIndices[i - 1] + 1, streetIndex) // add 1 because we don't want to include the last fence
-      }
+      let housesToEvaluate = i === 0 ? streetComposition.slice(0, streetIndex) : streetComposition.slice(fenceIndices[i - 1] + 1, streetIndex)
       // max estate size is 6
       if (housesToEvaluate.length > 6) return 0
       // all houses must be built (innerText !== "")
@@ -237,50 +270,21 @@ const identifyEstates = () => {
     estates = estates.filter(e => e !== 0)
     return estates
   }).flat()
-
-  const estatePoints = {
-    "1": [1, 3],
-    "2": [2, 3, 4],
-    "3": [3, 4, 5, 6],
-    "4": [4, 5, 6, 7, 8],
-    "5": [5, 6, 7, 8, 10],
-    "6": [6, 7, 8, 10, 12]
-  }
-
-  let estateSizes = [1, 2, 3, 4, 5, 6]
-  estateSizes.forEach(size => {
-    const nEstates = estates.filter(e => e === size).length
-    const nEstateToggles = document.querySelectorAll(`#scores-estate-${size} > .marker.toggled`).length
-    const points = nEstates * estatePoints[size][nEstateToggles]
-    document.getElementById(`estate-counter-${size}`).innerText = nEstates
-    document.getElementById(`total-score-estate-${size}`).innerText = points
-  })
 }
 
-const getDataKeysToCache = () => {
-  // find all elements with a data-key attribute
+const cacheDataKeys = () => {
   const cache = {}
   dataKeys.forEach(element => {
     const key = element.getAttribute('data-key');
-    let value
-    // for houses we need to know what the innerText (house number or empty) is
-    if (key.startsWith('house')) value = parseInt(element.innerText) || ""
-    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
-    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
-      value = element.classList.contains('toggled')
-    }
-    cache[key] = value;
+    cache[key] = key.startsWith('house') ? parseInt(element.innerText) || "" : element.classList.contains('toggled')
   });
   localStorage.setItem('cache', JSON.stringify(cache))
 }
 
 const clearDataKeys = () => {
   dataKeys.forEach(element => {
-    const key = element.getAttribute('data-key');
-    // for houses we need to know what the innerText (house number or empty) is
-    if (key.startsWith('house')) element.innerText = ""
-    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
-    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
+    if (element.getAttribute('data-key').startsWith('house')) element.innerText = ""
+    else {
       element.classList.remove('toggled')
     }
   });
@@ -288,25 +292,22 @@ const clearDataKeys = () => {
   calculateScores()
 }
 
-const updateDataKeyElementsFromCache = cache => {
+const applyDataKeysCache = cache => {
   // find all elements with a data-key attribute
   dataKeys.forEach(element => {
     const key = element.getAttribute('data-key');
     if (cache[key] === undefined) return
-    // for houses we need to know what the innerText (house number or empty) is
     if (key.startsWith('house')) element.innerText = cache[key]
-    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
-    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
+    else {
       if (cache[key]) element.classList.add('toggled')
     }
   });
-  // update the scores
   calculateScores()
 }
 
 let dataKeys = Array.from(document.querySelectorAll('[data-key]'))
-updateDataKeyElementsFromCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
-document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, #scores-bis').forEach(element => {
+applyDataKeysCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
+document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, .scores-bis, #skips').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -331,7 +332,7 @@ document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, 
       placeToggleMenu(element)
     } else if (classes.contains('park')) {
       placeIncrementableMenu({element, alignment: "horizontal"})
-    } else if (classes.contains('estate-values') || classes.contains('construction-markers') || element.id === "scores-bis") {
+    } else if (classes.contains('estate-values') || classes.contains('construction-markers') || classes.contains('scores-bis') || classes.contains('skips')) {
       placeIncrementableMenu({element, alignment: "vertical"})
     } else if (classes.contains('house')) {
       placeHouseMenu(element)

@@ -185,18 +185,39 @@
 #estate-counter-1 {
     left: 414px;
 }
+
 #estate-counter-2 {
     left: 456px;
 }
+
 #estate-counter-3 {
     left: 500px;
 }
+
 #estate-counter-4 {
     left: 542px;
 }
+
 #estate-counter-5 {
     left: 587px;
 }
+
 #estate-counter-6 {
     left: 632px;
+}
+
+#skips {
+    flex-direction: column;
+    bottom: 106px;
+    right: 104px;
+    height: 140px;
+    width: 41px;
+}
+
+#total-score-skips {
+    left: 785px;
+}
+
+#total-score {
+    left: 849px
 }

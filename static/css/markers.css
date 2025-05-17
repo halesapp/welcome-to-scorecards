@@ -28,10 +28,6 @@
     background-color: darkblue;
 }
 
-.marker.toggled.bis {
-    background-color: darkred;
-}
-
 .incrementing-icons {
     display: flex;
     align-items: center;
@@ -49,4 +45,9 @@
     left: 291px;
     height: 144px;
     width: 76px;
+}
+
+#skips > .marker {
+    width: 26px;
+    height: 26px;
 }
