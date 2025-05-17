@@ -1,37 +1,19 @@
-const newNoElement = onclick => {
-  const noElement = document.createElement('img')
-  noElement.src = './no.png'
-  noElement.alt = 'Cancel'
-  noElement.classList.add('menu-icon')
-  noElement.onclick = onclick
-  return noElement
+const newImgElement = (src, alt, onclick) => {
+  const imgElement = document.createElement('img')
+  imgElement.src = src
+  imgElement.alt = alt
+  imgElement.classList.add('menu-icon')
+  imgElement.onclick = onclick
+  return imgElement
 }
 
-const newYesElement = onclick => {
-  const yesElement = document.createElement('img')
-  yesElement.src = './yes.png'
-  yesElement.alt = 'Apply'
-  yesElement.classList.add('menu-icon')
-  yesElement.onclick = onclick
-  return yesElement
-}
-
-const newPlusElement = onclick => {
-  const plusElement = document.createElement('div')
-  plusElement.innerText = '+'
-  plusElement.classList.add('menu-icon');
-  plusElement.classList.add('incrementing-icons');
-  plusElement.onclick = onclick;
-  return plusElement;
-}
-
-const newMinusElement = onclick => {
-  const minusElement = document.createElement('div')
-  minusElement.innerText = '-'
-  minusElement.classList.add('menu-icon');
-  minusElement.classList.add('incrementing-icons');
-  minusElement.onclick = onclick;
-  return minusElement;
+const newDivElement = (text, onclick) => {
+  const divElement = document.createElement('div')
+  divElement.innerText = text
+  divElement.classList.add('menu-icon')
+  divElement.classList.add('incrementing-icons')
+  divElement.onclick = onclick;
+  return divElement;
 }
 
 const placeToggleMenu = element => {
@@ -41,8 +23,8 @@ const placeToggleMenu = element => {
   menu.classList.add('interact-menu')
   menu.style.width = `${menuWidth}px`
   menu.style.height = `${menuHeight}px`
-  const noElement = newNoElement(() => removeToggle(element))
-  const yesElement = newYesElement(() => addToggle(element))
+  const noElement = newImgElement('./static/images/no.png', 'Cancel', () => removeToggle(element))
+  const yesElement = newImgElement('./static/images/yes.png', 'Apply', () => addToggle(element))
   menu.appendChild(noElement)
   menu.appendChild(yesElement)
 
@@ -57,8 +39,8 @@ const placeToggleMenu = element => {
 const placeIncrementableMenu = ({element, alignment}) => {
   const menu = document.createElement('div')
   menu.classList.add('interact-menu')
-  const noElement = newMinusElement(() => decrementMarkerChildren(element))
-  const yesElement = newPlusElement(() => incrementMarkerChildren(element))
+  const noElement = newDivElement('-', () => decrementMarkerChildren(element))
+  const yesElement = newDivElement('+', () => incrementMarkerChildren(element))
   menu.appendChild(noElement)
   menu.appendChild(yesElement)
   // the no button should be to the left of the element and the yes button to the right
@@ -111,6 +93,7 @@ const placeHouseMenu = element => {
     } else {
       element.innerText = parseInt(numberInput.value);
     }
+    getDataKeysToCache()
     calculateScores()
   }
   menu.append(numberInput);
@@ -129,6 +112,7 @@ const addToggle = element => {
   if (!element.classList.contains('toggled')) {
     element.classList.add('toggled');
   }
+  getDataKeysToCache()
   calculateScores()
 }
 
@@ -138,6 +122,7 @@ const removeToggle = element => {
     element.classList.remove('toggled');
   }
   calculateScores()
+  getDataKeysToCache()
 }
 
 const calculateScores = () => {
@@ -218,41 +203,6 @@ const hideAllMenus = () => {
   document.querySelectorAll('.interact-menu').forEach(e => e.remove());
 }
 
-document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, #scores-bis').forEach(element => {
-  element.addEventListener('click', event => {
-    event.stopImmediatePropagation()
-    hideAllMenus()
-    // Get the bounding box of the clicked element
-    const rect = element.getBoundingClientRect();
-
-    // Create the highlight element
-    const highlight = document.createElement('div');
-    highlight.classList.add('highlight-box');
-
-    // Position it absolutely around the clicked element
-    const padding = 10; // px
-    highlight.style.top = `${window.scrollY + rect.top - padding}px`;
-    highlight.style.left = `${window.scrollX + rect.left - padding}px`;
-    highlight.style.width = `${rect.width + padding}px`;
-    highlight.style.height = `${rect.height + padding}px`;
-    document.body.appendChild(highlight);
-
-    // Create the interaction menu
-    const classes = element.classList;
-    if (classes.contains('fence') || classes.contains('pool')) placeToggleMenu(element)
-    else if (classes.contains('park')) placeIncrementableMenu({element, alignment: "horizontal"})
-    else if (classes.contains('estate-values') || classes.contains('construction-markers') || element.id === "scores-bis") placeIncrementableMenu({element, alignment: "vertical"})
-    else if (classes.contains('house')) placeHouseMenu(element)
-  });
-});
-
-document.addEventListener('click', event => {
-  const isMenuOrHighlight = event.target.closest('.interact-menu') || event.target.closest('.highlight-box');
-  if (!isMenuOrHighlight) {
-    hideAllMenus();
-  }
-});
-
 const identifyEstates = () => {
   const streetNumbers = [1, 2, 3]
   const estates = streetNumbers.map(number => {
@@ -306,3 +256,92 @@ const identifyEstates = () => {
     document.getElementById(`total-score-estate-${size}`).innerText = points
   })
 }
+
+const getDataKeysToCache = () => {
+  // find all elements with a data-key attribute
+  const cache = {}
+  dataKeys.forEach(element => {
+    const key = element.getAttribute('data-key');
+    let value
+    // for houses we need to know what the innerText (house number or empty) is
+    if (key.startsWith('house')) value = parseInt(element.innerText) || ""
+    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
+    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
+      value = element.classList.contains('toggled')
+    }
+    cache[key] = value;
+  });
+  localStorage.setItem('cache', JSON.stringify(cache))
+}
+
+const clearDataKeys = () => {
+  dataKeys.forEach(element => {
+    const key = element.getAttribute('data-key');
+    // for houses we need to know what the innerText (house number or empty) is
+    if (key.startsWith('house')) element.innerText = ""
+    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
+    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
+      element.classList.remove('toggled')
+    }
+  });
+  localStorage.removeItem('cache')
+  calculateScores()
+}
+
+const updateDataKeyElementsFromCache = cache => {
+  // find all elements with a data-key attribute
+  dataKeys.forEach(element => {
+    const key = element.getAttribute('data-key');
+    if (cache[key] === undefined) return
+    // for houses we need to know what the innerText (house number or empty) is
+    if (key.startsWith('house')) element.innerText = cache[key]
+    // for pools, fences, parks, and construction markers - we need to know if they have the toggled class
+    else if (key.startsWith('fence') || key.startsWith('pool') || key.startsWith('park') || key.startsWith('construction-markers')) {
+      if (cache[key]) element.classList.add('toggled')
+    }
+  });
+  // update the scores
+  calculateScores()
+}
+
+let dataKeys = Array.from(document.querySelectorAll('[data-key]'))
+updateDataKeyElementsFromCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
+document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, #scores-bis').forEach(element => {
+  element.addEventListener('click', event => {
+    event.stopImmediatePropagation()
+    hideAllMenus()
+    // Get the bounding box of the clicked element
+    const rect = element.getBoundingClientRect();
+
+    // Create the highlight element
+    const highlight = document.createElement('div');
+    highlight.classList.add('highlight-box');
+
+    // Position it absolutely around the clicked element
+    const padding = 10; // px
+    highlight.style.top = `${window.scrollY + rect.top - padding}px`;
+    highlight.style.left = `${window.scrollX + rect.left - padding}px`;
+    highlight.style.width = `${rect.width + padding}px`;
+    highlight.style.height = `${rect.height + padding}px`;
+    document.body.appendChild(highlight);
+
+    // Create the interaction menu
+    const classes = element.classList;
+    if (classes.contains('fence') || classes.contains('pool')) {
+      placeToggleMenu(element)
+    } else if (classes.contains('park')) {
+      placeIncrementableMenu({element, alignment: "horizontal"})
+    } else if (classes.contains('estate-values') || classes.contains('construction-markers') || element.id === "scores-bis") {
+      placeIncrementableMenu({element, alignment: "vertical"})
+    } else if (classes.contains('house')) {
+      placeHouseMenu(element)
+    }
+  })
+});
+
+document.addEventListener('click', event => {
+  const isMenuOrHighlight = event.target.closest('.interact-menu') || event.target.closest('.highlight-box');
+  if (!isMenuOrHighlight) hideAllMenus()
+})
+
+document.getElementById('refresh').addEventListener('click', () => clearDataKeys())

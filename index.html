@@ -8,186 +8,192 @@
   <meta name="description" content="Welcome to your Perfect Home!">
   <meta name="author" content="Riley Hales">
 
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="markers.css">
-  <link rel="stylesheet" href="positioning.css">
-<!--  <link rel="stylesheet" href="debug.css">-->
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="./static/css/styles.css">
+  <link rel="stylesheet" href="./static/css/markers.css">
+  <link rel="stylesheet" href="./static/css/positioning.css">
+  <!--  <link rel="stylesheet" href="./static/css/debug.css">-->
+  <script src="./static/js/main.js" defer></script>
+
 
 </head>
 <body>
 
 <div id="app">
-  <img id="base-image" src="game-sheet.webp" alt="blank board game sheet" class="board-base"/>
+  <img id="base-image" src="./static/images/game-sheet.webp" alt="blank board game sheet" class="board-base"/>
+
+  <img id="refresh" src="static/images/refresh.svg" alt="refresh" class="abs refresh-button" style="top: 0; right: 0; width: 50px; height: 50px; padding: 10px; opacity: 85%;"/>
 
   <div id="parks1" class="marker-container park">
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
+    <div class="marker" data-key="park-1.1"></div>
+    <div class="marker" data-key="park-1.2"></div>
+    <div class="marker" data-key="park-1.3"></div>
+    <div class="marker" data-key="park-1.4"></div>
   </div>
+
   <div id="street1" class="street-container">
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.1"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.1"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.2"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.2"></div>
     <div class="lot" style="width: 57px">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-1.1"></div>
+      <div class="house" data-key="house-1.3"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.3"></div>
     <div class="lot" style="width: 53px">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.4"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.4"></div>
     <div class="lot" style="width: 56px">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.5"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.5"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.6"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.6"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-1.2"></div>
+      <div class="house" data-key="house-1.7"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.7"></div>
     <div class="lot" style="width: 53px">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-1.3"></div>
+      <div class="house" data-key="house-1.8"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.8"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.9"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-1.9"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-1.10"></div>
     </div>
   </div>
 
   <div id="parks2" class="marker-container park">
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
+    <div class="marker" data-key="park-2.1"></div>
+    <div class="marker" data-key="park-2.2"></div>
+    <div class="marker" data-key="park-2.3"></div>
+    <div class="marker" data-key="park-2.4"></div>
+    <div class="marker" data-key="park-2.5"></div>
   </div>
+
   <div id="street2" class="street-container">
     <div class="lot" style="width: 57px">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-2.1"></div>
+      <div class="house" data-key="house-2.1"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.1"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.2"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.2"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.3"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.3"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-2.2"></div>
+      <div class="house" data-key="house-2.4"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.4"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.5"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.5"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.6"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.6"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.7"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.7"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-2.3"></div>
+      <div class="house" data-key="house-2.8"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.8"></div>
     <div class="lot" style="width: 53px">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.9"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.9"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.10"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-2.10"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-2.11"></div>
     </div>
   </div>
 
   <div id="parks3" class="marker-container park">
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
-    <div class="marker"></div>
+    <div class="marker" data-key="park-3.1"></div>
+    <div class="marker" data-key="park-3.2"></div>
+    <div class="marker" data-key="park-3.3"></div>
+    <div class="marker" data-key="park-3.4"></div>
+    <div class="marker" data-key="park-3.5"></div>
+    <div class="marker" data-key="park-3.6"></div>
   </div>
+
   <div id="street3" class="street-container">
     <div class="lot" style="width: 57px">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.1"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.1"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-3.1"></div>
+      <div class="house" data-key="house-3.2"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.2"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.3"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.3"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.4"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.4"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.5"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.5"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.6"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.6"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-3.2"></div>
+      <div class="house" data-key="house-3.7"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.7"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.8"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.8"></div>
     <div class="lot" style="width: 54px">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.9"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.9"></div>
     <div class="lot" style="width: 54px">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.10"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.10"></div>
     <div class="lot">
-      <div class="pool"></div>
-      <div class="house"></div>
+      <div class="pool" data-key="pool-3.3"></div>
+      <div class="house" data-key="house-3.11"></div>
     </div>
-    <div class="fence"></div>
+    <div class="fence" data-key="fence-3.11"></div>
     <div class="lot">
-      <div class="house"></div>
+      <div class="house" data-key="house-3.12"></div>
     </div>
   </div>
-  
+
   <div id="scores-parks" class="abs">
     <div id="street1-score-parks" class="score-box score-parks">0</div>
     <div id="street2-score-parks" class="score-box score-parks">0</div>
