@@ -256,15 +256,24 @@ const cacheDataKeys = () => {
   const cache = {}
   dataKeys.forEach(element => {
     const key = element.getAttribute('data-key');
-    cache[key] = key.startsWith('house') ? parseInt(element.innerText) || "" : element.classList.contains('toggled')
+    if (key === 'city-name') {
+      cache[key] = element.value || ""
+    } else if (key.startsWith('house')) {
+      cache[key] = element.innerText || ""
+    } else {
+      cache[key] = element.classList.contains('toggled')
+    }
   });
   localStorage.setItem('cache', JSON.stringify(cache))
 }
 
 const clearDataKeys = () => {
   dataKeys.forEach(element => {
-    if (element.getAttribute('data-key').startsWith('house')) element.innerText = ""
-    else {
+    if (element.getAttribute('data-key') === 'city-name') {
+      element.value = ""
+    } else if (element.getAttribute('data-key').startsWith('house')) {
+      element.innerText = ""
+    } else {
       element.classList.remove('toggled')
     }
   });
@@ -273,19 +282,21 @@ const clearDataKeys = () => {
 }
 
 const applyDataKeysCache = cache => {
-  // find all elements with a data-key attribute
   dataKeys.forEach(element => {
     const key = element.getAttribute('data-key');
     if (cache[key] === undefined) return
-    if (key.startsWith('house')) element.innerText = cache[key]
-    else {
+    if (key === 'city-name') {
+      element.value = cache[key] || ""
+    } else if (key.startsWith('house')) {
+      element.innerText = cache[key] || ""
+    } else {
       if (cache[key]) element.classList.add('toggled')
     }
   });
   calculateScores()
 }
 
-let dataKeys = Array.from(document.querySelectorAll('[data-key]'))
+const dataKeys = Array.from(document.querySelectorAll('[data-key]'))
 applyDataKeysCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
 document.querySelectorAll('.fence, .house, .pool, .park, .incrementable').forEach(element => {
   element.addEventListener('click', event => {
@@ -325,3 +336,4 @@ document.addEventListener('click', event => {
 })
 
 document.getElementById('refresh').addEventListener('click', () => clearDataKeys())
+document.getElementById('city-name').addEventListener('keyup', () => cacheDataKeys())
