@@ -23,8 +23,8 @@ const placeToggleMenu = element => {
   menu.classList.add('interact-menu')
   menu.style.width = `${menuWidth}px`
   menu.style.height = `${menuHeight}px`
-  const noElement = newImgElement('./static/images/no.png', 'Cancel', () => removeToggle(element))
-  const yesElement = newImgElement('./static/images/yes.png', 'Apply', () => addToggle(element))
+  const noElement = newImgElement('./static/images/no.svg', 'Cancel', () => removeToggle(element))
+  const yesElement = newImgElement('./static/images/yes.svg', 'Apply', () => addToggle(element))
   menu.appendChild(noElement)
   menu.appendChild(yesElement)
 
