@@ -1,11 +1,8 @@
 :root {
     --page-width: 927px;
     --page-height: 924px;
-    --lot-width: 55px;
-    --fence-width: 7px;
     --park-height: 34px;
     --street-height: 94px;
-
 }
 
 .abs {
@@ -16,6 +13,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #app {
@@ -24,8 +24,11 @@ body {
     height: var(--page-height);
 }
 
-.board-base {
+#app > * {
     position: absolute;
+}
+
+.board-base {
     width: var(--page-width);
     height: var(--page-height);
 }
@@ -34,7 +37,7 @@ body {
     display: inline-block;
     padding: 0;
     margin: 0;
-    width: var(--lot-width);
+    width: 55px;
     height: var(--street-height);
     position: relative;
 }
@@ -43,7 +46,7 @@ body {
     display: inline-block;
     padding: 0;
     margin: 0;
-    width: var(--fence-width);
+    width: 7px;
     height: var(--street-height);
     background: transparent;
 }
@@ -110,11 +113,6 @@ body {
     margin: 5px;
 }
 
-.estate-values {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
 
 .score-box {
     font-size: 17px;

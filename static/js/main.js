@@ -105,6 +105,7 @@ const placeHouseMenu = element => {
   menu.style.left = `${window.scrollX + rect.left + (rect.width / 2) - (menuWidth / 2)}px`;
 
   document.body.appendChild(menu);
+  numberInput.focus()
 }
 
 const addToggle = element => {
@@ -121,17 +122,17 @@ const removeToggle = element => {
   if (element.classList.contains('toggled')) {
     element.classList.remove('toggled');
   }
-  calculateScores()
   cacheDataKeys()
+  calculateScores()
 }
 
 const calculateScores = () => {
   let totalScore = 0
 
   //////// Calculate Pool Scores
-  let poolTotal = 0;
-  const toggledPools = document.querySelectorAll('.pool.toggled');
-  const poolMarkers = Array.from(document.querySelectorAll('#scores-pools > .marker')).slice(0, -1);
+  let poolTotal = 0
+  const toggledPools = document.querySelectorAll('.pool.toggled')
+  const poolMarkers = Array.from(document.querySelectorAll('#markers-pools > .marker'))
   poolMarkers.forEach((element, index) => {
     if (index < toggledPools.length) {
       if (!element.classList.contains('toggled')) {
@@ -141,11 +142,11 @@ const calculateScores = () => {
       element.classList.remove('toggled');
     }
   })
-  poolTotal += 3 * toggledPools.length;
-  if (toggledPools.length >= 4) poolTotal += toggledPools.length - 3;
-  if (toggledPools.length >= 7) poolTotal += toggledPools.length - 6;
-  document.getElementById('total-score-pools').innerText = poolTotal;
-  totalScore += poolTotal;
+  poolTotal += 3 * toggledPools.length
+  if (toggledPools.length >= 4) poolTotal += toggledPools.length - 3
+  if (toggledPools.length >= 7) poolTotal += toggledPools.length - 6
+  document.getElementById('total-score-pools').innerText = poolTotal
+  totalScore += poolTotal
 
   //////// Calculate Park Scores
   let parkTotal = 0;
@@ -158,8 +159,8 @@ const calculateScores = () => {
         parkTotal += score;
       }
     )
-  document.getElementById('total-score-parks').innerText = parkTotal;
-  totalScore += parkTotal;
+  document.getElementById('total-score-parks').innerText = parkTotal
+  totalScore += parkTotal
 
   //////// Calculate Estate Points
   const estates = identifyEstates()
@@ -175,7 +176,7 @@ const calculateScores = () => {
   const estateSizes = [1, 2, 3, 4, 5, 6]
   estateSizes.forEach(size => {
     const nEstates = estates.filter(e => e === size).length
-    const nEstateToggles = document.querySelectorAll(`#scores-estate-${size} > .marker.toggled`).length
+    const nEstateToggles = document.querySelectorAll(`#markers-estate-${size} > .marker.toggled`).length
     const points = nEstates * estatePoints[size][nEstateToggles]
     document.getElementById(`estate-counter-${size}`).innerText = nEstates
     document.getElementById(`total-score-estate-${size}`).innerText = points
@@ -184,13 +185,13 @@ const calculateScores = () => {
 
   //////// Calculate Bis Penalties
   const bisPoints = [0, 1, 3, 6, 9, 12, 16, 20, 24, 28]
-  const bisCount = document.querySelectorAll('.scores-bis > .marker.toggled').length
+  const bisCount = document.querySelectorAll('#markers-bises > .marker.toggled').length
   document.getElementById('total-score-bis').innerText = bisPoints[bisCount]
   totalScore -= bisPoints[bisCount]
 
   //////// Calculate Skips Penalties
   const skipPoints = [0, 0, 3, 5]
-  const skipsCount = document.querySelectorAll('.skips > .marker.toggled').length
+  const skipsCount = document.querySelectorAll('#markers-skips > .marker.toggled').length
   document.getElementById('total-score-skips').innerText = skipPoints[skipsCount]
   totalScore -= skipPoints[skipsCount]
 
@@ -199,40 +200,19 @@ const calculateScores = () => {
 }
 
 const incrementMarkerChildren = element => {
-  const children = Array.from(element.children);
   hideAllMenus()
-  if (children[children.length - 2].classList.contains('toggled')) {
-    return false
-  }
-  children
-    .slice(0, -1)
-    .every(child => {
-      if (!child.classList.contains('toggled')) {
-        child.classList.add('toggled');
-        return false
-      }
-      return true
-    })
+  let children = Array.from(element.children);
+  if (element.classList.contains('bises')) children = children.slice(0, -1)
+  children.every(child => !child.classList.contains('toggled') ? child.classList.add('toggled') : true)
   cacheDataKeys()
   calculateScores()
 }
 
 const decrementMarkerChildren = element => {
-  const children = Array.from(element.children);
   hideAllMenus()
-  if (!children[0].classList.contains('toggled')) {
-    return false
-  }
-  children
-    .slice(0, -1)
-    .reverse()
-    .every(child => {
-      if (child.classList.contains('toggled')) {
-        child.classList.remove('toggled');
-        return false
-      }
-      return true
-    })
+  let children = Array.from(element.children).reverse()
+  if (element.classList.contains('bises')) children = children.slice(1)
+  children.every(child => child.classList.contains('toggled') ? child.classList.remove('toggled') : true)
   cacheDataKeys()
   calculateScores()
 }
@@ -307,7 +287,7 @@ const applyDataKeysCache = cache => {
 
 let dataKeys = Array.from(document.querySelectorAll('[data-key]'))
 applyDataKeysCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
-document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, .estate-values, .scores-bis, #skips').forEach(element => {
+document.querySelectorAll('.fence, .house, .pool, .park, .incrementable').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -330,12 +310,11 @@ document.querySelectorAll('.fence, .house, .pool, .park, .construction-markers, 
     const classes = element.classList;
     if (classes.contains('fence') || classes.contains('pool')) {
       placeToggleMenu(element)
-    } else if (classes.contains('park')) {
-      placeIncrementableMenu({element, alignment: "horizontal"})
-    } else if (classes.contains('estate-values') || classes.contains('construction-markers') || classes.contains('scores-bis') || classes.contains('skips')) {
-      placeIncrementableMenu({element, alignment: "vertical"})
     } else if (classes.contains('house')) {
       placeHouseMenu(element)
+    } else {
+      const alignment = classes.contains('park') ? 'horizontal' : 'vertical'
+      placeIncrementableMenu({element, alignment})
     }
   })
 });

@@ -1,12 +1,56 @@
+
 .marker-container {
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 6px;
 }
 
 .marker-container.park {
     height: var(--park-height);
+    padding: 3px 34px 3px 4px;
+}
+
+.marker-container.pools {
+    width: 51px;
+    height: 151px;
+    bottom: 108px;
+    left: 200px;
+    flex-wrap: wrap;
+}
+
+.marker-container.construction {
+    bottom: 133px;
+    left: 285px;
+    height: 144px;
+    width: 76px;
+}
+
+.marker-container.estates {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.marker-container.bises {
+    width: 55px;
+    height: 189px;
+    bottom: 103px;
+    left: 690px;
+    flex-wrap: wrap;
+}
+
+.marker-container.skips {
+    flex-direction: column;
+    bottom: 136px;
+    right: 105px;
+    height: 99px;
+}
+
+.marker-container.skips > .marker {
+    width: 26px;
+    height: 26px;
 }
 
 .marker {
@@ -18,10 +62,6 @@
 
 .marker.toggled {
     background: black;
-}
-
-.marker.toggled.park {
-    background-color: darkgreen;
 }
 
 .marker.toggled.pool {
@@ -37,17 +77,4 @@
     border: 2px solid black;
     border-radius: 50%;
     background: aliceblue;
-}
-
-.construction-markers {
-    position: absolute;
-    bottom: 139px;
-    left: 291px;
-    height: 144px;
-    width: 76px;
-}
-
-#skips > .marker {
-    width: 26px;
-    height: 26px;
 }
