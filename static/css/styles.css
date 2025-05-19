@@ -127,3 +127,142 @@ body {
     width: 50px;
     height: 50px;
 }
+
+/* Absolute positioning */
+#scores-parks {
+    width: 50px;
+    height: 139px;
+    bottom: 114px;
+    left: 121px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#markers-estate-1 {
+    bottom: 193px;
+    left: 409px;
+}
+
+#markers-estate-2 {
+    height: 49px;
+    bottom: 180px;
+    left: 452px;
+}
+
+#markers-estate-3 {
+    height: 75px;
+    bottom: 170px;
+    left: 491px;
+}
+
+#markers-estate-4 {
+    height: 100px;
+    bottom: 159px;
+    left: 532px;
+}
+
+#markers-estate-5 {
+    height: 100px;
+    bottom: 173px;
+    left: 575px;
+}
+
+#markers-estate-6 {
+    height: 102px;
+    bottom: 186px;
+    left: 615px;
+}
+
+.total-score {
+    width: 38px;
+    height: 37px;
+    bottom: 51px;
+}
+
+.estate-counter {
+    width: 36px;
+    height: 37px;
+    bottom: 106px;
+}
+
+/* Markers */
+.marker-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+.marker-container.park {
+    height: var(--park-height);
+    padding: 3px 34px 3px 4px;
+}
+
+.marker-container.pools {
+    width: 51px;
+    height: 151px;
+    bottom: 108px;
+    left: 200px;
+    flex-wrap: wrap;
+}
+
+.marker-container.construction {
+    bottom: 133px;
+    left: 285px;
+    height: 144px;
+    width: 76px;
+}
+
+.marker-container.estates {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.marker-container.bises {
+    width: 55px;
+    height: 189px;
+    bottom: 103px;
+    left: 690px;
+    flex-wrap: wrap;
+}
+
+.marker-container.skips {
+    flex-direction: column;
+    bottom: 136px;
+    right: 105px;
+    height: 99px;
+}
+
+.marker-container.skips > .marker {
+    width: 26px;
+    height: 26px;
+}
+
+.marker {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: transparent;
+}
+
+.marker.toggled {
+    background: black;
+}
+
+.marker.toggled.pool {
+    background-color: darkblue;
+}
+
+.incrementing-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 35px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background: aliceblue;
+}
