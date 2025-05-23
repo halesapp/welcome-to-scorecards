@@ -127,7 +127,22 @@ const removeToggle = element => {
 }
 
 const calculateScores = () => {
-  let totalScore = 0
+  //////// Calculate Objective Scores
+  const objectiveTotal = Array.from(document.querySelectorAll('.objective')).reduce((acc, objective) => acc + (parseInt(objective.innerText) || 0), 0)
+  document.getElementById('total-score-objectives').innerText = objectiveTotal
+
+  //////// Calculate Park Scores
+  let parkTotal = 0;
+  [1, 2, 3]
+    .forEach(streetNumber => {
+        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > .marker.toggled`);
+        let score = 2 * scoredParks.length;
+        if (scoredParks.length === 2 + streetNumber) score += (2 * streetNumber + 2);
+        document.getElementById(`street${streetNumber}-score-parks`).innerText = score;
+        parkTotal += score;
+      }
+    )
+  document.getElementById('total-score-parks').innerText = parkTotal
 
   //////// Calculate Pool Scores
   let poolTotal = 0
@@ -146,23 +161,10 @@ const calculateScores = () => {
   if (toggledPools.length >= 4) poolTotal += toggledPools.length - 3
   if (toggledPools.length >= 7) poolTotal += toggledPools.length - 6
   document.getElementById('total-score-pools').innerText = poolTotal
-  totalScore += poolTotal
-
-  //////// Calculate Park Scores
-  let parkTotal = 0;
-  [1, 2, 3]
-    .forEach(streetNumber => {
-        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > .marker.toggled`);
-        let score = 2 * scoredParks.length;
-        if (scoredParks.length === 2 + streetNumber) score += (2 * streetNumber + 2);
-        document.getElementById(`street${streetNumber}-score-parks`).innerText = score;
-        parkTotal += score;
-      }
-    )
-  document.getElementById('total-score-parks').innerText = parkTotal
-  totalScore += parkTotal
 
   //////// Calculate Estate Points
+  let estateTotal = 0
+  const estateSizes = [1, 2, 3, 4, 5, 6]
   const estates = identifyEstates()
   const estatePoints = {
     "1": [1, 3],
@@ -172,31 +174,27 @@ const calculateScores = () => {
     "5": [5, 6, 7, 8, 10],
     "6": [6, 7, 8, 10, 12]
   }
-
-  const estateSizes = [1, 2, 3, 4, 5, 6]
   estateSizes.forEach(size => {
     const nEstates = estates.filter(e => e === size).length
     const nEstateToggles = document.querySelectorAll(`#markers-estate-${size} > .marker.toggled`).length
     const points = nEstates * estatePoints[size][nEstateToggles]
     document.getElementById(`estate-counter-${size}`).innerText = nEstates
     document.getElementById(`total-score-estate-${size}`).innerText = points
-    totalScore += points
+    estateTotal += points
   })
 
   //////// Calculate Bis Penalties
   const bisPoints = [0, 1, 3, 6, 9, 12, 16, 20, 24, 28]
   const bisCount = document.querySelectorAll('#markers-bises > .marker.toggled').length
   document.getElementById('total-score-bis').innerText = bisPoints[bisCount]
-  totalScore -= bisPoints[bisCount]
 
   //////// Calculate Skips Penalties
   const skipPoints = [0, 0, 3, 5]
   const skipsCount = document.querySelectorAll('#markers-skips > .marker.toggled').length
   document.getElementById('total-score-skips').innerText = skipPoints[skipsCount]
-  totalScore -= skipPoints[skipsCount]
 
   //////// Calculate Total Score
-  document.getElementById('total-score').innerText = totalScore
+  document.getElementById('total-score').innerText = objectiveTotal + parkTotal + poolTotal + estateTotal - bisPoints[bisCount] - skipPoints[skipsCount]
 }
 
 const incrementMarkerChildren = element => {
@@ -258,7 +256,7 @@ const cacheDataKeys = () => {
     const key = element.getAttribute('data-key');
     if (key === 'city-name') {
       cache[key] = element.value || ""
-    } else if (key.startsWith('house')) {
+    } else if (key.startsWith('house') || key.startsWith('objective')) {
       cache[key] = element.innerText || ""
     } else {
       cache[key] = element.classList.contains('toggled')
@@ -271,7 +269,7 @@ const clearDataKeys = () => {
   dataKeys.forEach(element => {
     if (element.getAttribute('data-key') === 'city-name') {
       element.value = ""
-    } else if (element.getAttribute('data-key').startsWith('house')) {
+    } else if (element.getAttribute('data-key').startsWith('house') || element.getAttribute('data-key').startsWith('objective')) {
       element.innerText = ""
     } else {
       element.classList.remove('toggled')
@@ -287,7 +285,7 @@ const applyDataKeysCache = cache => {
     if (cache[key] === undefined) return
     if (key === 'city-name') {
       element.value = cache[key] || ""
-    } else if (key.startsWith('house')) {
+    } else if (key.startsWith('house') || key.startsWith('objective')) {
       element.innerText = cache[key] || ""
     } else {
       if (cache[key]) element.classList.add('toggled')
@@ -298,7 +296,7 @@ const applyDataKeysCache = cache => {
 
 const dataKeys = Array.from(document.querySelectorAll('[data-key]'))
 applyDataKeysCache(localStorage.getItem('cache') ? JSON.parse(localStorage.getItem('cache')) : {})
-document.querySelectorAll('.fence, .house, .pool, .park, .incrementable').forEach(element => {
+document.querySelectorAll('.fence, .house, .pool, .park, .objective, .incrementable').forEach(element => {
   element.addEventListener('click', event => {
     event.stopImmediatePropagation()
     hideAllMenus()
@@ -321,7 +319,7 @@ document.querySelectorAll('.fence, .house, .pool, .park, .incrementable').forEac
     const classes = element.classList;
     if (classes.contains('fence') || classes.contains('pool')) {
       placeToggleMenu(element)
-    } else if (classes.contains('house')) {
+    } else if (classes.contains('house') || classes.contains('objective')) {
       placeHouseMenu(element)
     } else {
       const alignment = classes.contains('park') ? 'horizontal' : 'vertical'

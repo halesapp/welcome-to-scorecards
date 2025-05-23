@@ -9,9 +9,11 @@
   <meta name="author" content="Riley Hales">
 
   <link rel="preload" href="./static/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./static/css/styles.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./static/css/styles.css">
+  </noscript>
   <script src="./static/js/main.js" defer></script>
-  <!--  <link rel="stylesheet" href="./static/css/styles.css">-->
+  <link rel="stylesheet" href="./static/css/debug.css">
 </head>
 <body>
 
@@ -19,7 +21,7 @@
   <!-- Base sheet -->
   <img id="base-image" src="./static/images/game-sheet.webp" alt="blank board game sheet" class="board-base"/>
   <img id="refresh" src="./static/images/refresh.svg" alt="refresh" class="" style="width: 50px; height: 50px; padding: 10px; opacity: 85%;"/>
-  <input id="city-name" data-key="city-name" placeholder="Name your city..." style=" font-size: 16px; left: 34px; top: 147px; height: 45px; width: 161px; background: transparent; text-align: center; border: none;" />
+  <input id="city-name" data-key="city-name" placeholder="Name your city..." style=" font-size: 16px; left: 34px; top: 147px; height: 45px; width: 161px; background: transparent; text-align: center; border: none;"/>
 
   <!-- Street 1 -->
   <div class="marker-container incrementable park" style="top: 39px; left: 733px; width: 84px;">
@@ -186,7 +188,16 @@
       <div class="house" data-key="house-3.12"></div>
     </div>
   </div>
-
+  <!-- Objectives -->
+  <div data-key="objective-1" class="objective score-box" style="width: 41px; height: 41px; top: 621px; left: 50px;"></div>
+  <div data-key="objective-2" class="objective score-box" style="width: 41px; height: 41px; top: 694px; left: 49px"></div>
+  <div data-key="objective-3" class="objective score-box" style="width: 41px; height: 41px; top: 767px; left: 49px"></div>
+  <!-- Total score counters -->
+  <div id="scores-parks">
+    <div id="street1-score-parks" class="score-box score-parks">0</div>
+    <div id="street2-score-parks" class="score-box score-parks">0</div>
+    <div id="street3-score-parks" class="score-box score-parks">0</div>
+  </div>
   <!-- Marker sections -->
   <div id="markers-pools" class="marker-container pools">
     <div class="marker"></div>
@@ -267,12 +278,8 @@
   <div id="estate-counter-4" class="score-box estate-counter" style="left: 542px">0</div>
   <div id="estate-counter-5" class="score-box estate-counter" style="left: 587px">0</div>
   <div id="estate-counter-6" class="score-box estate-counter" style="left: 632px">0</div>
-  <!-- Total score counters -->
-  <div id="scores-parks" class="">
-    <div id="street1-score-parks" class="score-box score-parks">0</div>
-    <div id="street2-score-parks" class="score-box score-parks">0</div>
-    <div id="street3-score-parks" class="score-box score-parks">0</div>
-  </div>
+  <!-- Total score display -->
+  <div id="total-score-objectives" class="score-box total-score" style="left: 51px">0</div>
   <div id="total-score-parks" class="score-box total-score" style="left: 126px">0</div>
   <div id="total-score-pools" class="score-box total-score" style="left: 210px">0</div>
   <div id="total-score-construction" class="score-box total-score" style="left: 308px">?</div>
