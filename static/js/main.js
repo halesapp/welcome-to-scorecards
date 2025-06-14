@@ -135,7 +135,7 @@ const calculateScores = () => {
   let parkTotal = 0;
   [1, 2, 3]
     .forEach(streetNumber => {
-        const scoredParks = document.querySelectorAll(`#parks${streetNumber} > .marker.toggled`);
+        const scoredParks = document.querySelectorAll(`#parks-${streetNumber} > .marker.toggled`);
         let score = 2 * scoredParks.length;
         if (scoredParks.length === 2 + streetNumber) score += (2 * streetNumber + 2);
         document.getElementById(`street${streetNumber}-score-parks`).innerText = score;
@@ -224,7 +224,7 @@ const identifyEstates = () => {
   const streetNumbers = [1, 2, 3]
   return streetNumbers.map(number => {
     // all houses on the street are selected so the first and last element can never be fences
-    let streetComposition = Array.from(document.querySelectorAll(`#street${number} > .fence.toggled, #street${number} > .lot > .house`))
+    let streetComposition = Array.from(document.querySelectorAll(`#street-${number} > .fence.toggled, #street-${number} > .lot > .house`))
     if (streetComposition.length <= 1) return
 
     // if there are no fences, there are no estates
